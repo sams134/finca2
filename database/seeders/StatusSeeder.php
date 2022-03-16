@@ -16,11 +16,11 @@ class StatusSeeder extends Seeder
     public function run()
     {
         //
-        Status::create(['name' => 'Activo - Tronconero']);
-        Status::create(['name' => 'Activo - Medianero']);
-        Status::create(['name' => 'Activo - Puntero']);
-        Status::create(['name' => 'Activo - Estabulado']);
-        Status::create(['name' => 'Vendido']);
-        Status::create(['name' => 'Muerto']);
+        Status::create(['name' => 'Tronconero', 'badge_color_id' => 3]);
+        Status::create(['name' => 'Medianero' , 'badge_color_id' => 3]);
+        Status::create(['name' => 'Puntero' , 'badge_color_id' => 3]);
+        Status::create(['name' => 'Estabulado', 'badge_color_id' => 1]);
+        Status::create(['name' => 'Vendido', 'badge_color_id' => 6,'is_active' => false]);
+        Status::create(['name' => 'Muerto', 'badge_color_id' => 7,'is_active' => false]);
     }
 }

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
+
+    public function badge_color()
+    {
+        return $this->belongsTo(Badge_color::class);
+    }
 }

@@ -50,11 +50,11 @@
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-palette"></span></span><span class="nav-link-text ps-1">Colores</span>
                 </div>
               </a>
-            <!-- parent pages--><a class="nav-link" href="../../../pages/landing.html" role="button" aria-expanded="false">
+            <!-- parent pages--><a class="nav-link" href="{{route('types.index')}}" role="button" aria-expanded="false">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-eye"></span></span><span class="nav-link-text ps-1">Tipos</span>
                 </div>
               </a>
-            <!-- parent pages--><a class="nav-link" href="../../../pages/landing.html" role="button" aria-expanded="false">
+            <!-- parent pages--><a class="nav-link" href="{{route('status.index')}}" role="button" aria-expanded="false">
                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-globe"></span></span><span class="nav-link-text ps-1">Estados</span>
                 </div>
               </a> 
@@ -63,48 +63,19 @@
             
            
            
-            <!-- parent pages--><a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-share-alt"></span></span><span class="nav-link-text ps-1">Social</span>
-              </div>
-            </a>
-            <ul class="nav collapse false" id="social">
-              <li class="nav-item"><a class="nav-link" href="../../../app/social/feed.html" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Enviar Tip del Día</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../../../app/social/activity-log.html" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Envío de Ofertas o Codigos de Oferta</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../../../app/social/notifications.html" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Enviar Brochure de Presentación</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../../../app/social/followers.html" aria-expanded="false">
-                  <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Enviar Calendario de Mantenimientos</span>
-                  </div>
-                </a>
-                <!-- more inner pages-->
-              </li>
-            </ul>
+           
           </li>
           <li class="nav-item">
             <!-- label-->
             <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-              <div class="col-auto navbar-vertical-label">Producción
+              <div class="col-auto navbar-vertical-label">Animales
               </div>
               <div class="col ps-0">
                 <hr class="mb-0 navbar-vertical-divider" />
               </div>
             </div>
-            <!-- parent pages--><a class="nav-link" href="../../../pages/starter.html" role="button" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-flag"></span></span><span class="nav-link-text ps-1">Ver Trabajos</span>
+            <!-- parent pages--><a class="nav-link" href="{{route('animals.index')}}" role="button" aria-expanded="false"">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-horse"></span></span><span class="nav-link-text ps-1">Ver Animales</span>
               </div>
             </a>
             <!-- parent pages--><a class="nav-link" href="../../../pages/landing.html" role="button" aria-expanded="false">

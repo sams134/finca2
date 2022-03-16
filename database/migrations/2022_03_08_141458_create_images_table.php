@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table->unsignedBigInteger('animal_id')->nullable();        
-            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('set null');
+            $table->unsignedBigInteger('imageable_id');
+            $table->string('imageable_type');
             $table->timestamps();
         });
     }

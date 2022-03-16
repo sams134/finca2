@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Earing_color extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
 
-    public function imageable(){
-        return $this->morphTo();
-    }
+    protected $guarded = ['id'];
 }

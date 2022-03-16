@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AnimalsController;
 use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\OwnersController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TypesController;
+use App\Http\Livewire\Animals\LiveAnimalsIndex;
+use App\Http\Livewire\Animals\ShowAnimals;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +27,14 @@ Route::get('/', function () {
 
 Route::resource('/colors', ColorsController::class);
 Route::resource('/owners', OwnersController::class);
+Route::resource('/types', TypesController::class);
+Route::resource('/status', StatusController::class);
+
+Route::get('/animals',LiveAnimalsIndex::class)->name('animals.index');
+Route::get('/animals/create',[AnimalsController::class,'create'])->name('animals.create');
+Route::post('/animals',[AnimalsController::class,'store'])->name('animals.store');
+Route::get('animals/{animal}/edit',[AnimalsController::class,'edit'])->name('animals.edit');
+Route::put('/animals/', [AnimalsController::class,'update'])->name('animals.update');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

@@ -10,5 +10,10 @@ class Type extends Model
     use HasFactory;
     public const GENDER_MALE = 1;
     public const GENDER_FEMALE = 2;
+    protected $guarded = ['id'];
 
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
 }

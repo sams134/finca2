@@ -36,6 +36,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('animal_id')->nullable();        
             $table->foreign('animal_id')->references('id')->on('animals')->onDelete('set null');
+
+            $table->unsignedBigInteger('earing_color_id')->nullable();        
+            $table->foreign('earing_color_id')->references('id')->on('earing_colors')->onDelete('set null');
             $table->timestamps();
         });
     }

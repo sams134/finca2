@@ -10,4 +10,10 @@ class Owner extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    public $withCount = ['animals'];
+
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
 }

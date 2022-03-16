@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('earing_colors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_active')->default(true);
-
-            $table->unsignedBigInteger('badge_color_id')->nullable();        
-            $table->foreign('badge_color_id')->references('id')->on('badge_colors')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('earing_colors');
     }
 };

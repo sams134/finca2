@@ -72,7 +72,7 @@
                         aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
                                 class="toggle-line"></span></span></button>
                     <a class="navbar-brand me-1 me-sm-3" href="../../index.html">
-                        <div class="d-flex align-items-center"><span class="font-sans-serif">CME-AMIR</span>
+                        <div class="d-flex align-items-center"><span class="font-sans-serif">Finca</span>
                         </div>
                     </a>
                     <ul class="navbar-nav align-items-center d-none d-lg-block">

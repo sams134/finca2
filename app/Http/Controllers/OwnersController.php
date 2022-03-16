@@ -53,9 +53,10 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Owner $owner)
     {
         //
+        return $owner;
     }
 
     /**
@@ -93,8 +94,12 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Owner $owner)
     {
         //
+        if ($owner->delete())
+        return redirect(route('owners.index'))->with('success', "El propietario fue eliminado satisfactoriamente ");
+    else
+        return redirect(route('owners.index'))->with('error', "No pudo eliminarse el propietario");
     }
 }
