@@ -23,6 +23,13 @@ class Animal extends Model
               $q->where('is_active',$active);
           });
     }
+    public function scopeOwner($query,$owner)
+    {
+        if ($owner)
+        return $query->orWhereHas('owner',function ($q) use ($owner){
+            $q->orWhere('name','like','%'.$owner.'%');
+        });
+    }
     public function color()
     {
         return $this->belongsTo(Color::class);
@@ -45,6 +52,10 @@ class Animal extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function earing_color()
+    {
+        return $this->belongsTo(Earing_color::class);
+    }
     public function images()
     {
         return $this->morphMany(Image::class,'imageable');

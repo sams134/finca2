@@ -124,3 +124,17 @@ photoDialog.addEventListener('change', function (){
  
     reader.readAsDataURL(this.files[0]); 
 })
+
+const photoDeleteEdit = document.querySelector("#btn_photo_delete");
+if (photoDeleteEdit)
+photoDeleteEdit.addEventListener('click',function(){
+    document.querySelector("#preview-image-before-upload").setAttribute('src', asset+'img/icons/cow.png'); 
+    photoDeleteEdit.remove();
+    document.querySelector('#photoDeleted').value = true;
+});
+
+const cameraBtnModal = document.querySelector("#cameraBtnModal");
+if (cameraBtnModal)
+cameraBtnModal.addEventListener('click',() => {
+    document.querySelector("#cameraModal").click();
+})

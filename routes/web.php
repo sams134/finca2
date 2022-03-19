@@ -34,7 +34,8 @@ Route::get('/animals',LiveAnimalsIndex::class)->name('animals.index');
 Route::get('/animals/create',[AnimalsController::class,'create'])->name('animals.create');
 Route::post('/animals',[AnimalsController::class,'store'])->name('animals.store');
 Route::get('animals/{animal}/edit',[AnimalsController::class,'edit'])->name('animals.edit');
-Route::put('/animals/', [AnimalsController::class,'update'])->name('animals.update');
+Route::put('animals/{animal}', [AnimalsController::class,'update'])->name('animals.update');
+Route::get('animals/{animal}',[AnimalsController::class,'show'])->name('animals.show');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

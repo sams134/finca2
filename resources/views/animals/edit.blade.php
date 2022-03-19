@@ -1,7 +1,8 @@
 <x-app-layout>
-    <form action="{{ route('animals.update')}}" method="POST" x-data="{male:{{$animal->gender}}}">
+    <form action="{{ route('animals.update',$animal)}}" method="POST" x-data="{male:{{$animal->gender}}}"  enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <input type="hidden" name="photoDeleted" value="false" id="photoDeleted">
         <div class="card">
             <div class="card-header">
                 <h3>Edite datos del animal {{$animal->number}}</h3>
@@ -112,22 +113,47 @@
                     <div class="col-12 col-md-6">
                         <div class="mb-1" >
                             <label class="form-label" for="commentLbl">Comentario Inicial</label>
-                            @if ($animal->comments->first())
-                            <textarea name="comment" id="" cols="30" rows="4" class="form-control">{{$animal->comments->first()->comment}}</textarea>
-                            @else
-                            <textarea name="comment" id="" cols="30" rows="4" class="form-control"></textarea>
-                            @endif
+                           
+                            <textarea name="description" id="" cols="30" rows="4" class="form-control">{{$animal->description}}</textarea>
+                           
                         </div>
                     </div>
-                    
-
+                    <div class="col-12 col-md-6 mt-5 d-flex align-items-start flex-column ">
+                        <div class="avatar avatar-5xl mb-auto">
+                            @if ($animal->images->first())
+                            <img src="{{asset('storage/animals/'.$animal->images->first()->url)}}" alt="" id="preview-image-before-upload" class="rounded-circle img-thumbnail"/>
+                            @else
+                            <img src="{{asset('img/icons/cow.png')}}" alt="" id="preview-image-before-upload" class="rounded-circle img-thumbnail"/>
+                            @endif
+                            
+                          </div>
+                          <div class="d-flex">
+                            @if ($animal->images->first())
+                          <button class="btn btn-outline-danger m-3" id="btn_photo_delete" type="button">                            
+                            <i class="fas fa-camera  border-secondary "></i> 
+                            <span id="lbl_btn_photo_create">Eliminar Foto</span> 
+                        </button>
+                        @endif
+                        <button class="btn btn-outline-secondary m-3" id="btn_photo_create" type="button">                            
+                            <i class="fas fa-camera  border-secondary "></i> 
+                            <span id="lbl_btn_photo_create">Tomar Fotografia</span> 
+                        </button>
+                    </div>
+                    <input type="file" id="photoDialog_create" name="photo" class="d-none">
+                    </div>
                 </div>
+                
                
             </div> {{-- card body --}}
             <div class="card-footer">
-                <button class="btn btn-outline-primary me-1 mb-1 float-end" type="submit">Agregar</button>
+                <button class="btn btn-outline-primary me-1 mb-1 float-end" type="submit">Editar Animal</button>
                 <a class="btn btn-outline-danger me-1 mb-1 float-end" href="{{ route('colors.index') }}">Cancelar</a>
             </div>
         </div>
     </form>
+    <script>
+        // "global" vars, built using blade
+        var asset = '{{ URL::asset('') }}';
+    </script>
+    <script src="{{asset('js/main.js')}}"></script>
 </x-app-layout>

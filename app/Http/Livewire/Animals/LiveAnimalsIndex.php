@@ -16,11 +16,22 @@ class LiveAnimalsIndex extends Component
 
     public function render()
     {
-        $animals = Animal::query()->active($this->active_only)
-                        ->where('number','like','%'.$this->search.'%')
-                        ->orderBy($this->sort,$this->direction)
+        $searchWord = explode(' ',$this->search);
+        $animals = Animal::query()->active($this->active_only);
+
+        
+
+        foreach($searchWord as $key)
+        $animals = $animals->WhereHas('owner',function($q) use ($key) {
+                                $q->where('name','like','%'.$key.'%');
+                            })
+                            ->orWhere('number','like','%'.$key.'%')
+                            ->orWhereHas('type',function($q) use($key) {
+                                $q->where('name','like','%'.$key.'%');
+                            });
+        $animals = $animals->orderBy($this->sort,$this->direction)
                         ->paginate($this->cant);
-        return view('livewire.animals.live-animals-index',compact('animals'));
+        return view('livewire.animals.live-animals-index',compact('animals','searchWord'));
     }
     public function order($sort)
     {

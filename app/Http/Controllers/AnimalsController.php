@@ -45,12 +45,10 @@ class AnimalsController extends Controller
             'status_id' => $request->status_id,
             'type_id' => $type_id,
             'earing_color_id' => $request->earing_color_id,
+            'description' => $request->description,
             
         ])){
-                if ($request->comment)
-                $animal->comments()->create([
-                    'comment' => $request->comment,
-                ]);
+               
                 if($request->hasFile('photo'))
                 {
                     $filenameWithExt    = $request->file('photo')->getClientOriginalName();
@@ -73,6 +71,7 @@ class AnimalsController extends Controller
 
     public function edit(Animal $animal)
     {
+        
         $males = Type::where('gender',1)->get();
         $females = Type::where('gender',2)->get(); 
         $colors = Color::orderBy('name')->get();
@@ -85,5 +84,53 @@ class AnimalsController extends Controller
                                             'earingColors',
                                             'statuses',
                                             'owners'));
+    }
+
+    public function update(Request $request, Animal $animal)
+    {
+        
+        $request->validate(['number' => "required|max:5"]);
+        $animal->owner_id = $request->owner_id;
+        $animal->number = $request->number;
+        $animal->gender = $request->gender;
+        if ($request->gender == 1)
+            $animal->type_id = $request->male_id;
+        else
+            $animal->type_id = $request->female_id;
+
+        $animal->color_id = $request->color_id;
+        $animal->earing_color_id = $request->earing_color_id;
+        $animal->status_id = $request->status_id;
+        $animal->description = $request->description;
+        
+
+        if ($animal->save()){
+            
+            
+            if ($request->photoDeleted == "true")
+                $animal->images->first()->delete();
+            if($request->hasFile('photo'))
+            {
+                $filenameWithExt    = $request->file('photo')->getClientOriginalName();
+                $filename           = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension          = $request->file('photo')->getClientOriginalExtension();
+                $fileNameToStore    = $filename.'_'.time().'.'.$extension;
+                $path               = $request->file('photo')->storeAs('public/animals/'.$animal->id."/", $fileNameToStore);
+                $animal->images()->create([
+                    'url' => $animal->id."/".$fileNameToStore,
+                    'imageable_id' => $animal->id,
+                    'imageable_type' => Animal::class
+                ]);
+            } 
+            
+            return redirect(route('animals.index'))->with('success', "Se edito la informacion del animal #$animal->number");
+        } else
+        return redirect(route('animals.index'))->with('error', "No pudo editarse el animal #$animal->number");
+
+       
+    }
+    public function show(Animal $animal)
+    {
+        return view('animals.show',compact('animal'));
     }
 }

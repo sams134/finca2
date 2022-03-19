@@ -17,6 +17,6 @@ class AnimalSeeder extends Seeder
     {
         //
 
-        Animal::factory(1)->create([]);
+        Animal::factory(100)->create([]);
     }
 }

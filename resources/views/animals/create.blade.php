@@ -86,8 +86,8 @@
                 <div class="row">
                    
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="commentLbl">Comentario Inicial</label>
-                            <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+                            <label class="form-label" for="commentLbl">Descripcion</label>
+                            <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
                         <div class="col-12 col-md-6 mt-5 d-flex align-items-start flex-column ">
                             <div class="avatar avatar-5xl mb-auto">

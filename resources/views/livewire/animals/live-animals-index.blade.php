@@ -144,16 +144,20 @@
                         @foreach ($animals as $animal)
                         <tr>
                             <td>
-                                <div class="avatar avatar-xl">
-                                    @if ($animal->images->count() > 0)
-                                        <img src="{{asset('storage/animals/'.$animal->images->first()->url)}}" alt="" class="rounded-circle "/>
-                                    @else
-                                        <img src="{{asset('img/icons/cow.png')}}" alt="" />
-                                    @endif
-                                    
+                                <div class="avatar avatar-2xl">
+                                    <a href="{{route('animals.show', $animal)}}">
+                                        @if ($animal->images->count() > 0)
+                                            <img src="{{asset('storage/animals/'.$animal->images->first()->url)}}" alt="" class="rounded-circle "/>
+                                        @else
+                                            <img src="{{asset('img/icons/cow.png')}}" alt="" />
+                                        @endif
+                                    </a>    
                                   </div>
                             </td>
-                            <td >{{$animal->number}}</td>
+                            <td > <a href="{{route('animals.show', $animal)}}">
+                                {{$animal->number}}
+                                </a>
+                            </td>
                             <td> {{$animal->owner->name}} </td>  
                             <td>{{$animal->gender ==1?"Macho":"Hembra"}} </td>     
                             <td> {{$animal->type->name}} </td>       

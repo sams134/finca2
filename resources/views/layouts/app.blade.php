@@ -16,6 +16,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
         rel="stylesheet">
+        <link href="{{ asset('vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.css') }}" rel="stylesheet') }}" rel="stylesheet>
         <link href=" {{ asset('vendors/dropzone/dropzone.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -125,6 +126,8 @@
 
     <script src="{{ asset('vendors/anchorjs/anchor.min.js') }}"></script>
     <script src="{{ asset('vendors/is/is.min.js') }}"></script>
+    <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/rater-js/index.js') }}"></script>
     <script src="{{ asset('vendors/lodash/lodash.min.js') }}"></script>
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('vendors/dropzone/dropzone.min.js') }}"></script>
