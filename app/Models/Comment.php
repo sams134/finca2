@@ -14,4 +14,13 @@ class Comment extends Model
     {
         return $this->belongsTo(Animal::class);
     }
+
+    public function comment_type()
+    {
+        return $this->belongsTo(Comment_type::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

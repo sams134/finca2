@@ -16,8 +16,16 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('comment');
+            
             $table->unsignedBigInteger('animal_id')->nullable();        
             $table->foreign('animal_id')->references('id')->on('animals')->onDelete('set null');
+
+            $table->unsignedBigInteger('comment_type_id')->nullable();        
+            $table->foreign('comment_type_id')->references('id')->on('comment_types')->onDelete('set null');
+
+            $table->unsignedBigInteger('user_id');        
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -16,11 +16,14 @@ class StatusSeeder extends Seeder
     public function run()
     {
         //
-        Status::create(['name' => 'Tronconero', 'badge_color_id' => 3]);
-        Status::create(['name' => 'Medianero' , 'badge_color_id' => 3]);
-        Status::create(['name' => 'Puntero' , 'badge_color_id' => 3]);
-        Status::create(['name' => 'Estabulado', 'badge_color_id' => 1]);
-        Status::create(['name' => 'Vendido', 'badge_color_id' => 6,'is_active' => false]);
-        Status::create(['name' => 'Muerto', 'badge_color_id' => 7,'is_active' => false]);
+        Status::create(['id'=>1,'name' => 'Vendido', 'badge_color_id' => 6,'is_active' => false]);
+        Status::create(['id'=>2,'name' => 'Muerto', 'badge_color_id' => 7,'is_active' => false]);
+        Status::create(['id'=>3,'name' => 'Tronconero', 'badge_color_id' => 3]);
+        Status::create(['id'=>4,'name' => 'Medianero' , 'badge_color_id' => 3]);
+        Status::create(['id'=>5,'name' => 'Puntero' , 'badge_color_id' => 3]);
+        Status::create(['id'=>6,'name' => 'Estabulado', 'badge_color_id' => 1]);
+        Status::create(['id'=>7,'name' => 'Crianza', 'badge_color_id' => 2]);
+        Status::create(['id'=>8,'name' => 'Cargadas', 'badge_color_id' => 4]);
+        
     }
 }

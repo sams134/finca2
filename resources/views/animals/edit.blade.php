@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form action="{{ route('animals.update',$animal)}}" method="POST" x-data="{male:{{$animal->gender}}}"  enctype="multipart/form-data">
+    <form action="{{ route('animals.update',$animal)}}" method="POST" x-data="{male:{{$animal->gender}},criollo:{{$animal->is_criollo}}}"  enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="photoDeleted" value="false" id="photoDeleted">
@@ -26,16 +26,72 @@
                     <label class="form-label" for="numberLbl">Numero</label>
                     <input class="form-control" id="numberLbl" type="text" placeholder="numero" value="{{$animal->number}}" name="number"/>
                 </div>
-                <div class="mb-1">
-                    <div class="form-check">
-                        <input class="form-check-input" id="gender1" type="radio" name="gender" checked="" value="1" x-model="male"/>
-                        <label class="form-check-label" for="gender1">Macho</label>
-                      </div>
-                     
-                      <div class="form-check">
-                        <input class="form-check-input" id="gender2" type="radio" name="gender" value="2"  x-model="male"/>
-                        <label class="form-check-label" for="gender2">Hembra</label>
-                      </div>
+                <div class="mb-1 row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" id="gender1" type="radio" name="gender" checked="" value="1" x-model="male"/>
+                            <label class="form-check-label" for="gender1">Macho</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" id="gender2" type="radio" name="gender" value="2"  x-model="male"/>
+                            <label class="form-check-label" for="gender2">Hembra</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" id="gender1" type="radio" name="is_criollo"  value="1" x-model="criollo"/>
+                            <label class="form-check-label" for="gender1">Criollo</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" id="gender2" type="radio" name="is_criollo" checked value="2"  x-model="criollo"/>
+                            <label class="form-check-label" for="gender2">Comprado</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" x-show="criollo==1">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="numberLbl">Hijo de:</label>
+                        <select name="animal_id" id="" class="form-control">
+                            <option></option>
+                            @foreach ($animals as $animalEach)
+                                <option value="{{$animalEach->id}}"
+                                    @if ($animal->id == $animalEach->id)
+                                        selected
+                                    @endif
+                                    >
+                                    {{$animalEach->type->name}} {{$animalEach->color->name}} #{{$animalEach->number}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="numberLbl">Fecha Nacimiento:</label>
+                        <input class="form-control datetimepicker" id="datepickerNacimiento" type="text" placeholder="d/m/y" data-options='{"disableMobile":true}' name="born_date" value="{{$animal->born_date}}"/>
+                    </div>
+                </div>
+                <div class="row" x-show="criollo==2">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="numberLbl">Comprado a:</label>
+                        <input class="form-control" id="numberLbl" type="text" placeholder="Nombre del vendedor" name="bought_from" value="{{$animal->bought_from}}"/>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="compraLbl">Fecha Compra:</label>
+                        <input class="form-control datetimepicker" id="datepickerCompra" type="text" placeholder="d/m/y" data-options='{"disableMobile":true}' name="bought_date" value="{{$animal->bought_date}}"/>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="numberLbl">Precio Compra:</label>
+                        <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1">Q.</span>
+                            <input class="form-control" type="text" placeholder="Precio Compra" name="cost" value="{{$animal->cost}}"/>
+                        </div>                        
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="numberLbl">Peso Compra:</label>
+                        <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1">Lbs.</span>
+                            <input class="form-control" type="text" placeholder="Peso Inicial" name="bought_weight" value="{{$animal->bought_weight}}"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">

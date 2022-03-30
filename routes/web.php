@@ -6,6 +6,7 @@ use App\Http\Controllers\OwnersController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TypesController;
 use App\Http\Livewire\Animals\LiveAnimalsIndex;
+use App\Http\Livewire\Animals\LiveAnimalsShow;
 use App\Http\Livewire\Animals\ShowAnimals;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 
@@ -35,7 +36,9 @@ Route::get('/animals/create',[AnimalsController::class,'create'])->name('animals
 Route::post('/animals',[AnimalsController::class,'store'])->name('animals.store');
 Route::get('animals/{animal}/edit',[AnimalsController::class,'edit'])->name('animals.edit');
 Route::put('animals/{animal}', [AnimalsController::class,'update'])->name('animals.update');
-Route::get('animals/{animal}',[AnimalsController::class,'show'])->name('animals.show');
+Route::get('animals/{animal}',LiveAnimalsShow::class)->name('animals.show');
+Route::get('animals/getWeights/{id}',[AnimalsController::class,'getWeights']);
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

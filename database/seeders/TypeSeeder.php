@@ -22,6 +22,6 @@ class TypeSeeder extends Seeder
         Type::create(['gender' => Type::GENDER_FEMALE, 'name' => 'Chiva']);
         Type::create(['gender' => Type::GENDER_FEMALE, 'name' => 'Novilla']);
         Type::create(['gender' => Type::GENDER_FEMALE, 'name' => 'Cargada']);
-        Type::create(['gender' => Type::GENDER_FEMALE, 'name' => 'Vaca']);
+        Type::create(['gender' => Type::GENDER_FEMALE, 'name' => 'Vaca']); //vaca debe de ser 7 para pruebas y crearle hijos
     }
 }

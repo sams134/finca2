@@ -21,6 +21,15 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->float('cost')->nullable();
             $table->float('value')->nullable();
+            $table->enum('is_criollo',[Animal::CRIOLLO,Animal::COMPRADO])->default(Animal::COMPRADO);
+            $table->string('bought_from')->nullable();
+            $table->string('sold_to')->nullable();
+            $table->date('born_date')->nullable();
+            $table->date('bought_date')->nullable();
+            $table->date('sold_date')->nullable();
+            $table->integer('bought_weight')->nullable();
+            
+            
             //foreign keys
             $table->unsignedBigInteger('color_id')->nullable();        
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('set null');

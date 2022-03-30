@@ -9,6 +9,9 @@ use App\Models\Earing_color;
 use App\Models\Owner;
 use App\Models\Status;
 use App\Models\Type;
+use App\Models\Weight;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class AnimalsController extends Controller
@@ -22,21 +25,26 @@ class AnimalsController extends Controller
         $earingColors = Earing_color::orderBy('name')->get();
         $owners = Owner::orderBy('name')->get();
         $statuses = Status::orderBy('name')->get();
+        $animals = Animal::where('gender',2)->orderBy('number')->latest()->get();
         return view('animals.create',compact('males', 
                                              'females',
                                              'colors', 
                                              'earingColors',
                                              'statuses',
-                                             'owners'
+                                             'owners', 
+                                             'animals'
                                             )
                     );
     }
 
     public function store(Request $request){
+        
         $request->validate(['number' => "required|max:5"]);
-
+        
 
         $type_id = $request->gender == 1 ? $request->male_id : $request->female_id;
+         
+           
         if ($animal = Animal::create([
             'number' => $request->number,
             'gender' => $request->gender,
@@ -46,7 +54,13 @@ class AnimalsController extends Controller
             'type_id' => $type_id,
             'earing_color_id' => $request->earing_color_id,
             'description' => $request->description,
-            
+            'is_criollo' => $request->is_criollo,
+            'born_date' => ($request->is_criollo == 1)?$request->born_date:null,
+            'animal_id' => ($request->is_criollo == 1)?$request->animal_id:null,
+            'bought_from' => ($request->is_criollo == 2)?$request->bought_from:null,
+            'bought_date' => ($request->is_criollo == 2)?$request->bought_date:null,
+            'cost' => ($request->is_criollo == 2)?$request->cost:null,
+            'bought_weight' => ($request->is_criollo == 2)?$request->bought_weight:null,
         ])){
                
                 if($request->hasFile('photo'))
@@ -78,12 +92,15 @@ class AnimalsController extends Controller
         $earingColors = Earing_color::orderBy('name')->get();
         $owners = Owner::orderBy('name')->get();
         $statuses = Status::orderBy('name')->get();
+        $animals = Animal::where('gender',2)->orderBy('number')->latest()->get();
         return view('animals.edit',compact('animal','males', 
                                             'females',
                                             'colors', 
                                             'earingColors',
                                             'statuses',
-                                            'owners'));
+                                            'owners',
+                                            'animals'
+                                        ));
     }
 
     public function update(Request $request, Animal $animal)
@@ -132,5 +149,98 @@ class AnimalsController extends Controller
     public function show(Animal $animal)
     {
         return view('animals.show',compact('animal'));
+    }
+
+    //api 
+
+
+    public function getWeights($id){
+        $animal = Animal::find($id);
+        if ($animal->weights->count() > 0){
+            $firstDate = $animal->weights;
+            $lastDate = $firstDate->reverse();
+             $explotedDate = explode('-',$firstDate->first()->date);
+             $firstMonth = $explotedDate[1]*1;
+             $firstYear = $explotedDate[0]*1;
+     
+              $explotedDate = explode('-',$lastDate->first()->date);
+             $lastMonth = $explotedDate[1];
+             $lastYear = $explotedDate[0]*1; 
+     
+             $range = ($lastYear-$firstYear)*12+($lastMonth-$firstMonth);
+     
+             
+             //for($i=$firstMonth;$i<($firstMonth+$range);$i++)
+              // $monthlyWeight[$this->getMonthName(($i-1))." '".($year+intdiv(($i-1),12))-2000] = 0; 
+             for($i=($firstMonth);$i<=($range+$firstMonth);$i++)
+             {
+                 $yearIncrease = intdiv(($i-1),12);
+                 $month = ((($i-1)-(intdiv(($i-1),12)*12))+1);
+                 $months[] = $month;
+                 $years[] = $firstYear+$yearIncrease;
+                 $weight = $this->getWeightAverage($id,$month,$firstYear+$yearIncrease);
+                 $weights[] = $weight==0?null:$weight;
+             }
+             $res = [
+                 'init' => $firstMonth,
+                 'firstYear' => $firstYear-2000,
+                 'range' => $range,
+                 'weights' => $weights,
+                 'months' => $months,
+                 'years' => $years,
+             ];
+             return json_encode($res);
+        }
+        return json_encode(null);
+       
+    }
+    public function getWeightAverage($animal_id,$month,$year){
+        $w1 = Weight::query()
+                ->where('animal_id',$animal_id)
+                ->whereMonth('date',date($month))
+                ->whereYear('date',date($year))
+                ->average('weight');
+               
+            return $w1;
+    }
+   
+
+    private function getMonthListFromDate($firstDate,$lastDate)
+    {
+        $values = explode('-',$firstDate);
+        $month = $values[1]*1;
+        $year = $values[0];
+
+        $d1 = new DateTime($firstDate);
+        $d2 = new DateTime($lastDate);
+        $months = $d2->diff($d1);
+        $differenceMonths = (($months->y) * 12) + ($months->m);
+
+        $period = ($differenceMonths < 24)?24:$differenceMonths;
+        $monthlyWeight = array();
+        for($i=$month;$i<($month+$period);$i++)
+          $monthlyWeight[$this->getMonthName(($i-1))." '".($year+intdiv(($i-1),12))-2000] = 0;
+
+        return json_encode($monthlyWeight);
+    }
+    private function getMonthName($month)
+    {
+
+        $monthy = ($month-(intdiv($month,12)*12))+1;
+        switch ($monthy) {
+            case '1': return 'Ene ';
+            case '2': return 'Feb ';
+            case '3': return 'Mar ';
+            case '4': return 'Abr ';
+            case '5': return 'May ';
+            case '6': return 'Jun ';
+            case '7': return 'Jul ';
+            case '8': return 'Ago ';
+            case '9': return 'Sep ';
+            case '10': return 'Oct ';
+            case '11': return 'Nov ';
+            case '12': return 'Dic ';
+            
+        }
     }
 }

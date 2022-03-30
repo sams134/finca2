@@ -13,15 +13,17 @@ class CameraShow extends Component
     public $open = false;
     public Animal $animal;
     public $image;
+    
     protected $rules = [
         'image' => "required|image"
     ];
     public function mount(Animal $animal)
     {
-        $this->animal = $animal;
+        $this->animal = Animal::find($animal->id);
     }
     public function render()
     {
+        $this->animal = Animal::find($this->animal->id);
         return view('livewire.camera-show');
     }
     public function save()
@@ -34,5 +36,8 @@ class CameraShow extends Component
             'imageable_type' => Animal::class
         ]);
        $this->reset('open');
+      $this->emitTo('animals.live-animals-show','render');
+      $this->emit('swiper');
+      
     }
 }

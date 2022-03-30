@@ -138,3 +138,11 @@ if (cameraBtnModal)
 cameraBtnModal.addEventListener('click',() => {
     document.querySelector("#cameraModal").click();
 })
+
+/* const test = document.querySelector("#test");
+if (test)
+    test.addEventListener('click',() => {
+        swiperInit();
+    }) */
+
+   

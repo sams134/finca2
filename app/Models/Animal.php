@@ -13,6 +13,9 @@ class Animal extends Model
     public const GENDER_MALE = 1;
     public const GENDER_FEMALE = 2;
 
+    public const CRIOLLO = 1;
+    public const COMPRADO = 2;
+
     protected $guarded = ['id'];
 
     //query scopes
@@ -49,7 +52,7 @@ class Animal extends Model
     }
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 
     public function earing_color()
@@ -58,7 +61,15 @@ class Animal extends Model
     }
     public function images()
     {
-        return $this->morphMany(Image::class,'imageable');
+        return $this->morphMany(Image::class,'imageable')->latest();
+    }
+    public function weights()
+    {
+        return $this->hasMany(Weight::class)->orderBy('date', 'asc');
+    }
+    public function mom()
+    {
+        return $this->belongsTo(Animal::class,'animal_id');
     }
 
     // crear un mutador para volver de 3 digitos el numero
