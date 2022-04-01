@@ -9,7 +9,7 @@
             <a class="btn btn-primary me-1 mb-1" href="{{route('animals.create')}}">
                 <span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Agregar Nuevo animal
             </a>
-            <a class="btn btn-warning me-1 mb-1" href="">
+            <a class="btn btn-warning me-1 mb-1" href="{{route('animals.create_bulk')}}">
                 <span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Agregar Nuevo Lote de Animales
             </a>
             <div class="block m-3">
@@ -35,7 +35,7 @@
                     <div class="form-check form-switch">
                         <label class="form-check-label" for="flexSwitchCheckChecked">Ver solo activos</label>
                         <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" wire:model="active_only" />
-                        
+                      
                       </div>
                 </div>
 

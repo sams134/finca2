@@ -10,28 +10,28 @@ use Livewire\WithFileUploads;
 class LiveAnimalsIndex extends Component
 {
     use WithFileUploads, WithPagination;
-    public $sort = 'number',$direction = 'desc',$active_only=false;
-    public $cant=200,$search='';
+    public $sort = 'number', $direction = 'desc', $active_only = false;
+    public $cant = 200, $search = '';
     protected $listeners = ['removeAnimal'];
 
     public function render()
     {
-        $searchWord = explode(' ',$this->search);
-        $animals = Animal::query()->active($this->active_only);
+        $search = $this->search;
+        $animals = Animal::query()
+            ->WhereHas('owner', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })
+            ->orWhere('number', 'like', '%' . $search . '%')
+            ->orWhereHas('type', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })
+            ->active($this->active_only)
+            ->orderBy($this->sort, $this->direction)
+            ->paginate($this->cant);
 
-        
 
-        foreach($searchWord as $key)
-        $animals = $animals->WhereHas('owner',function($q) use ($key) {
-                                $q->where('name','like','%'.$key.'%');
-                            })
-                            ->orWhere('number','like','%'.$key.'%')
-                            ->orWhereHas('type',function($q) use($key) {
-                                $q->where('name','like','%'.$key.'%');
-                            });
-        $animals = $animals->orderBy($this->sort,$this->direction)
-                        ->paginate($this->cant);
-        return view('livewire.animals.live-animals-index',compact('animals','searchWord'));
+
+        return view('livewire.animals.live-animals-index', compact('animals'));
     }
     public function order($sort)
     {

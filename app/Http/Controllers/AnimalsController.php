@@ -36,7 +36,7 @@ class AnimalsController extends Controller
                                             )
                     );
     }
-
+   
     public function store(Request $request){
         
         $request->validate(['number' => "required|max:5"]);
@@ -194,7 +194,7 @@ class AnimalsController extends Controller
         return json_encode(null);
        
     }
-    public function getWeightAverage($animal_id,$month,$year){
+    private function getWeightAverage($animal_id,$month,$year){
         $w1 = Weight::query()
                 ->where('animal_id',$animal_id)
                 ->whereMonth('date',date($month))
@@ -205,42 +205,5 @@ class AnimalsController extends Controller
     }
    
 
-    private function getMonthListFromDate($firstDate,$lastDate)
-    {
-        $values = explode('-',$firstDate);
-        $month = $values[1]*1;
-        $year = $values[0];
-
-        $d1 = new DateTime($firstDate);
-        $d2 = new DateTime($lastDate);
-        $months = $d2->diff($d1);
-        $differenceMonths = (($months->y) * 12) + ($months->m);
-
-        $period = ($differenceMonths < 24)?24:$differenceMonths;
-        $monthlyWeight = array();
-        for($i=$month;$i<($month+$period);$i++)
-          $monthlyWeight[$this->getMonthName(($i-1))." '".($year+intdiv(($i-1),12))-2000] = 0;
-
-        return json_encode($monthlyWeight);
-    }
-    private function getMonthName($month)
-    {
-
-        $monthy = ($month-(intdiv($month,12)*12))+1;
-        switch ($monthy) {
-            case '1': return 'Ene ';
-            case '2': return 'Feb ';
-            case '3': return 'Mar ';
-            case '4': return 'Abr ';
-            case '5': return 'May ';
-            case '6': return 'Jun ';
-            case '7': return 'Jul ';
-            case '8': return 'Ago ';
-            case '9': return 'Sep ';
-            case '10': return 'Oct ';
-            case '11': return 'Nov ';
-            case '12': return 'Dic ';
-            
-        }
-    }
+    
 }

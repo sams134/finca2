@@ -134,7 +134,7 @@
     <script src="{{ asset('vendors/rater-js/index.js') }}"></script>
     <script src="{{ asset('vendors/lodash/lodash.min.js') }}"></script>
     <script src="{{ asset('vendors/echarts/echarts.min.js') }}"></script>
-    
+    <script src="{{asset('vendors/countup/countUp.umd.js')}}"></script>
     
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('vendors/dropzone/dropzone.min.js') }}"></script>

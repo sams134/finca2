@@ -19,7 +19,7 @@ class AnimalSeeder extends Seeder
     {
         //
 
-        Animal::factory(100)->create()->each(function ($animal){
+        Animal::factory(0)->create()->each(function ($animal){
             Comment::factory(rand(0,5))->create([
                 'animal_id' => $animal->id,
             ]);

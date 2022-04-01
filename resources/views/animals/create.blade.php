@@ -113,7 +113,7 @@
                             <select name="female_id" id="" class="form-control">
                                 @foreach ($females as $female)
                                     <option value="{{$female->id}}"
-                                        <option value="{{$male->id}}"
+                                        
                                             @if (old('female_id') == $female->id)
                                             selected
                                         @endif
@@ -127,8 +127,9 @@
                             <label class="form-label" for="colorLbl">Color</label>
                             <select name="color_id" id="" class="form-control">
                                 @foreach ($colors as $color)
+                                  
                                     <option value="{{$color->id}}"
-                                        <option value="{{$male->id}}"
+                                        
                                             @if (old('color_id') == $color->id)
                                             selected
                                         @endif
@@ -145,7 +146,7 @@
                             <select name="earing_color_id" id="" class="form-control">
                                 @foreach ($earingColors as $earingColor)
                                     <option value="{{$earingColor->id}}"
-                                        <option value="{{$male->id}}"
+                                        
                                             @if (old('earing_color_id') == $earingColor->id)
                                             selected
                                         @endif
@@ -160,7 +161,7 @@
                             <select name="status_id" id="" class="form-control">
                                 @foreach ($statuses as $status)
                                     <option value="{{$status->id}}"
-                                        <option value="{{$male->id}}"
+                                        
                                             @if (old('status_id') == $status->id)
                                             selected
                                         @endif
