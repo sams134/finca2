@@ -13,6 +13,7 @@ use App\Models\Weight;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnimalsController extends Controller
 {
@@ -76,6 +77,27 @@ class AnimalsController extends Controller
                         'imageable_type' => Animal::class
                     ]);
                 } 
+                $fecha_ingreso = Carbon::parse($animal->created_at)->format('d/m/Y');
+                Comment::create([
+                    'comment' => 'Animal #'.$animal->number.' ingresado el dia '.$fecha_ingreso,
+                    'animal_id' => $animal->id,
+                    'user_id' => Auth::user()->id,
+                    'comment_type_id' => 1
+                ]);
+                if ($animal->bought_weight > 0) {
+                    Weight::create([
+                        'weight' => $animal->bought_weight,
+                        'date' => $animal->bought_date,
+                        'animal_id' => $animal->id
+                    ]);
+                    Comment::create([
+                        'comment' => 'Peso de compra '.$animal->type->name. '# '.$animal->number.': '.$animal->bought_weight."lbs",
+                        'animal_id' => $animal->id,
+                        'user_id' => Auth::user()->id,
+                        'comment_type_id' => 2
+                    ]);
+                }
+                
                 return redirect(route('animals.index'))->with('success', "Animal correctamente creado");
         }
         else
@@ -110,6 +132,12 @@ class AnimalsController extends Controller
         $animal->owner_id = $request->owner_id;
         $animal->number = $request->number;
         $animal->gender = $request->gender;
+        $animal->cost = ($request->is_criollo == 2)?$request->cost:null;
+        $animal->is_criollo = $request->is_criollo;
+        $animal->bought_from = ($request->is_criollo == 2)?$request->bought_from:null;
+        $animal->born_date = ($request->is_criollo == 1)?$request->born_date:null;
+        $animal->bought_date = ($request->is_criollo == 2)?$request->bought_date:null;
+        $animal->bought_weight = ($request->is_criollo == 2)?$request->bought_weight:null;
         if ($request->gender == 1)
             $animal->type_id = $request->male_id;
         else
@@ -118,6 +146,7 @@ class AnimalsController extends Controller
         $animal->color_id = $request->color_id;
         $animal->earing_color_id = $request->earing_color_id;
         $animal->status_id = $request->status_id;
+        $animal->animal_id = ($request->is_criollo == 1)?$request->animal_id:null;
         $animal->description = $request->description;
         
 
@@ -139,7 +168,13 @@ class AnimalsController extends Controller
                     'imageable_type' => Animal::class
                 ]);
             } 
-            
+            if ($request->edit_comment != "")
+            Comment::create([
+                'comment' => $request->edit_comment,
+                'animal_id' => $animal->id,
+                'user_id' => Auth::user()->id,
+                'comment_type_id' => 3
+            ]);
             return redirect(route('animals.index'))->with('success', "Se edito la informacion del animal #$animal->number");
         } else
         return redirect(route('animals.index'))->with('error', "No pudo editarse el animal #$animal->number");

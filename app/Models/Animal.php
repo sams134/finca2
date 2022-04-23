@@ -71,6 +71,10 @@ class Animal extends Model
     {
         return $this->belongsTo(Animal::class,'animal_id');
     }
+    public function childs()
+    {
+        return $this->hasMany(Animal::class,'animal_id');
+    }
 
     // crear un mutador para volver de 3 digitos el numero
     protected function number():attribute
@@ -84,5 +88,6 @@ class Animal extends Model
             }
         );
     }
+ 
    
 }

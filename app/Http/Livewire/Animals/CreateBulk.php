@@ -47,7 +47,7 @@ class CreateBulk extends Component
        $this->validate();
        $this->message = "validado";
        for($i=0;$i<$this->cant;$i++){
-          if ($animal = Animal::create([
+          $animal = Animal::create([
               'number' => $this->number[$i],
               'gender' => $this->gender,
               'description' => $this->description[$i],
@@ -61,24 +61,36 @@ class CreateBulk extends Component
               'owner_id' => $this->owner_id,
               'status_id' => $this->status_id,
               'earing_color_id' => $this->earing_color_id,
-          ]))
+          ]);
           $this->message = "Animal Guardado";
+          $fecha_ingreso = Carbon::parse($animal->created_at)->format('d/m/Y');
+          $fecha_compra = Carbon::parse($this->bought_date)->format('d/m/Y');
+            //comentario de creacion
+            Comment::create([
+                'comment' => 'Animal ingresado el dia '.$fecha_ingreso. " junto con otros $this->cant animales, comprados a $this->bought_from el dia ".$fecha_compra,
+                'animal_id' => $animal->id,
+                'user_id' => Auth::user()->id,
+                'comment_type_id' => 1
+            ]);
           if ($this->bought_weight[$i] > 0) 
-            if (Weight::create([
-                'weight' => $this->bought_weight[$i],
-                'date' => $this->bought_date,
-                'animal_id' => $animal->id
-            ]))
-            $this->message = "Peso Guardado";
-            $fecha_ingreso = Carbon::parse($animal->created_at)->format('d/m/Y');
-            $fecha_compra = Carbon::parse($this->bought_date)->format('d/m/Y');
-          if (Comment::create([
-              'comment' => 'Animal ingresado el dia '.$fecha_ingreso. " junto con otros $this->cant animales, comprados a $this->bought_from el dia ".$fecha_compra,
-              'animal_id' => $animal->id,
-              'user_id' => Auth::user()->id,
-              'comment_type_id' => 1
-          ]))
-          $this->message = "Comentaio Guardado";
+          {
+                Weight::create([
+                    'weight' => $this->bought_weight[$i],
+                    'date' => $this->bought_date,
+                    'animal_id' => $animal->id
+                ]);
+                $this->message = "Peso Guardado";
+                 //comentario de peso
+                Comment::create([
+                    'comment' => 'Peso de animal #'.$animal->number. " al dia $fecha_compra es:". $this->bought_weight[$i],
+                    'animal_id' => $animal->id,
+                    'user_id' => Auth::user()->id,
+                    'comment_type_id' => 2
+            ]);
+              
+          }
        }
+
+       return redirect(route('animals.index'))->with('success', "Se ingresaron $this->cant animales");
     }
 }

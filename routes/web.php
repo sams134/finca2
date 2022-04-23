@@ -23,9 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/',DashboardView::class);
 
 
 Route::resource('/colors', ColorsController::class);

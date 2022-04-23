@@ -62,7 +62,7 @@
                                         selected
                                     @endif
                                     >
-                                    {{$animal->type->name}} {{$animal->color->name}} #{{$animal->number}}
+                                    {{$animal->type->name}} {{$animal->color->name}} #{{$animal->number}} ({{$animal->owner->name}})
                                 </option>
                             @endforeach
                         </select>
@@ -126,6 +126,7 @@
                         <div class="mb-1" >
                             <label class="form-label" for="colorLbl">Color</label>
                             <select name="color_id" id="" class="form-control">
+                              
                                 @foreach ($colors as $color)
                                   
                                     <option value="{{$color->id}}"

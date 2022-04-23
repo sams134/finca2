@@ -24,6 +24,7 @@ class StatusSeeder extends Seeder
         Status::create(['id'=>6,'name' => 'Estabulado', 'badge_color_id' => 1]);
         Status::create(['id'=>7,'name' => 'Crianza', 'badge_color_id' => 2]);
         Status::create(['id'=>8,'name' => 'Cargadas', 'badge_color_id' => 4]);
-        
+        Status::create(['id'=>9,'name' => 'General', 'badge_color_id' => 5]);
+        Status::create(['id'=>10,'name' => 'Paridas', 'badge_color_id' => 4]);
     }
 }

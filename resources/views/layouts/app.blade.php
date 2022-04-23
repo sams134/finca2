@@ -9,14 +9,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+   {{--  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet"> --}}
     <meta name="theme-color" content="#ffffff">
     <script src="{{ asset('js/config.js') }}"></script>
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
+   {{--  <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
-        rel="stylesheet">
+        rel="stylesheet"> --}}
         <link href="{{ asset('vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.css') }}"  rel="stylesheet">
         <link href=" {{ asset('vendors/dropzone/dropzone.min.css') }}" rel="stylesheet">

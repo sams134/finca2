@@ -18,5 +18,7 @@ class CommentTypeSeeder extends Seeder
         //
         Comment_type::create(['id'=>1,'name' => 'Comentarios']);
         comment_type::create(['id'=>2,'name' => 'Pesa','icon' => 'fas fa-weight']);
+        comment_type::create(['id'=>3,'name' => 'Edicion','icon' => 'far fa-edit']);
+        
     }
 }

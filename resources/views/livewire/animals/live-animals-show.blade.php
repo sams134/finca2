@@ -1,8 +1,8 @@
 <div class="card mb-3">
     <div class="card-body">
 
-        <div class="row">
-            <div class="col-lg-8 mb-4 mb-lg-0">
+        <div class="row mb-10" style="height:1000px">
+            <div class="col-lg-8 mb-5 mb-lg-5">
                 <div class="product-slider" id="galleryTop">
 
                     @if ($animal->images->count() > 0)
@@ -89,7 +89,9 @@
                                 <tr class="btn-reveal-trigger">
                                     <td>Hijo de:</td>
                                     <td>
-                                        {{ $animal->mom->type->name}} #{{ $animal->mom->number}}
+                                        <a href="{{route('animals.show',$animal->mom)}}">
+                                        {{ $animal->mom->type->name}} #{{ $animal->mom->number}} ({{$animal->mom->owner->name }})
+                                        </a>
                                     </td>
                                 </tr>
                             @else
@@ -106,7 +108,25 @@
                                     </td>
                                 </tr>
                             @endif
+                            @if($animal->childs->count() > 0)
+                                <tr>
+                                    <td>Hijos:</td>
+                                    <td>
+                                        <table class="table table-striped ">
+                                            @foreach ($animal->childs as $child)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{route('animals.show',$child)}}">
+                                                            {{$child->type->name}} {{$child->color->name}} #{{$child->number}} ({{$child->owner->name}})
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                    </td>
+                                </tr>
 
+                            @endif
 
                         </tbody>
                     </table>
@@ -132,6 +152,12 @@
                     <p class="fs--1">Estado: <strong class="text-success">(Activo)</strong></p>
                 @endif
                 <div class="row">
+                    <div class="col-auto px-2 px-md-2">
+                        <a class="btn btn-sm btn-warning" href="{{route('animals.edit',$animal)}}">
+                            <span class="far fa-edit me-sm-2"></span>
+                            <span class="d-none d-sm-inline-block">Editar</span>
+                        </a>
+                    </div>
                     @if ($animal->status->is_active)
                         <div class="col-auto px-2 px-md-2">
                             <button class="btn btn-sm btn-primary" wire:click="test">
@@ -149,7 +175,7 @@
 
             </div>
         </div>
-        <div class="row mt-8">
+        <div class="row mt-10">
             <div class="col-12">
                 <div class="overflow-hidden mt-4">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">

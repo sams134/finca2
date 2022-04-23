@@ -57,7 +57,7 @@
                             <option></option>
                             @foreach ($animals as $animalEach)
                                 <option value="{{$animalEach->id}}"
-                                    @if ($animal->id == $animalEach->id)
+                                    @if ($animal->animal_id == $animalEach->id)
                                         selected
                                     @endif
                                     >
@@ -124,6 +124,7 @@
                         <div class="mb-1" >
                             <label class="form-label" for="colorLbl">Color</label>
                             <select name="color_id" id="" class="form-control">
+                              
                                 @foreach ($colors as $color)
                                     <option value="{{$color->id}}"
                                         @if ($color->id == $animal->color_id)
@@ -198,12 +199,17 @@
                     <input type="file" id="photoDialog_create" name="photo" class="d-none">
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="commentLbl">Comentario de la edicion</label>
+                        <input class="form-control"  type="text" placeholder="Comentar que se edito" value="" name="edit_comment"/>
+                    </div>
+                </div>
                
             </div> {{-- card body --}}
             <div class="card-footer">
                 <button class="btn btn-outline-primary me-1 mb-1 float-end" type="submit">Editar Animal</button>
-                <a class="btn btn-outline-danger me-1 mb-1 float-end" href="{{ route('colors.index') }}">Cancelar</a>
+                <a class="btn btn-outline-danger me-1 mb-1 float-end" href="{{ route('animals.index') }}">Cancelar</a>
             </div>
         </div>
     </form>
