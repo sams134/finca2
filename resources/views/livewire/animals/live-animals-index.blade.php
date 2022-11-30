@@ -50,6 +50,9 @@
                 <table class="table table-striped table-hover" id="animalTable">
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" >
+                            </th>
                             <th scope="col" style="width: 60px">
                              
                             </th>
@@ -143,6 +146,7 @@
                     <tbody>
                         @foreach ($animals as $animal)
                         <tr>
+                            <td><input type="checkbox" name="" id=""></td>
                             <td>
                                 <div class="avatar avatar-2xl">
                                     <a href="{{route('animals.show', $animal)}}">
